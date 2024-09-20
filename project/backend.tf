@@ -6,7 +6,15 @@ module "vpc" {
   source = "./modules/vpc"
 }
 
-module "eks" {
-  source = "./modules/eks"
+module "waf" {
+  source = "./modules/waf"
   depends_on = [ module.vpc ]
+}
+
+module "Cloud_Watch" {
+  source = "./modules/Cloud_Watch"
+}
+
+module "ecr" {
+  source = "./modules/ecr"
 }

@@ -5,10 +5,10 @@ output "vpc_id" {
 
 output "subnet_production_1a" {
   description = "ARN da production subnet1a"
-  value = aws_subnet.subnet-production-1a.arn
+  value = aws_subnet.subnet-production-pub-1a.arn
 }
 
 output "subnet_production_1b" {
   description = "ARN da production subnet1b"
-  value = aws_subnet.subnet-production-1b.arn
+  value = aws_subnet.subnet-production-pub-1b.arn
 }

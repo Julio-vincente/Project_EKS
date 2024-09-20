@@ -45,17 +45,11 @@ resource "aws_subnet" "subnet_production_priv_1b" {
 }
 
 ### IGW PRODUCTION
-resource "aws_internet_gateway" "igw-egress" {
-  vpc_id = aws_vpc.vpc-egress.id
+resource "aws_internet_gateway" "IGW-Prod" {
+  vpc_id = aws_vpc.vpc-production.id
   tags = {
     Name = var.Name_IGW
   }
-}
-
-### INTERNET GATEWAY
-resource "aws_internet_gateway_attachment" "att_IGW" {
-  vpc_id = aws_vpc.vpc-production.id
-  internet_gateway_id = aws_internet_gateway.IGW.id
 }
 
 ### NAT GATEWAY PRODUCTION
@@ -63,7 +57,7 @@ resource "aws_eip" "eip-production" {}
 
 resource "aws_nat_gateway" "nat-gateway-production" {
   allocation_id = aws_eip.eip-production.id
-  subnet_id     = aws_subnet.subnet-production-1a.id
+  subnet_id     = aws_subnet.subnet-production-pub-1a.id
   tags = {
     Name = var.Name_NatGW
   }
@@ -75,7 +69,7 @@ resource "aws_route_table" "RT-PUBLIC" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.igw-production.id
+    gateway_id = aws_internet_gateway.IGW-Prod.id
   }
 
   tags = {
@@ -105,6 +99,8 @@ resource "aws_route_table" "RT-PRIVATE" {
   tags = {
     Name = var.Name_RT_Private
   }
+
+  depends_on = [ aws_nat_gateway.nat-gateway-production ]
 }
 
 resource "aws_route_table_association" "Association_Private" {
@@ -114,5 +110,7 @@ resource "aws_route_table_association" "Association_Private" {
   }
   
   subnet_id = each.value
-  route_table_id = aws_route_table.RT-PRIVATE
+  route_table_id = aws_route_table.RT-PRIVATE.id
+
+  depends_on = [ aws_route_table.RT-PRIVATE ]
 }

@@ -1,27 +1,37 @@
-resource "aws_waf_web_acl" "web_acl_prod" {
-  name        = var.waf_prod
-  metric_name = "webACL"
+resource "aws_wafv2_web_acl" "WAF_PROD" {
+  name = var.name_waf_prod
+  description = var.description_waf_prod
+  scope = "REGIONAL"
+
   default_action {
-    type = "ALLOW"
+    allow {}
+  }
+  
+  visibility_config {
+    cloudwatch_metrics_enabled = true
+    metric_name = "my-waf-metrics"
+    sampled_requests_enabled = true
   }
 
-  rules {
-    action {
-      type = "BLOCK"
-    }
+  rule {
+    name = var.rule_name
     priority = 1
-    rule_id  = aws_waf_rule.sql_injection_rule.id
-  }
-}
 
-resource "aws_wafregional_sql_injection_match_set" "sql_injection_protection" {
-    name = var.sql_injection_protection
-    sql_injection_match_tuple {
-      text_transformation = "HTML_ENTITY_DECODE"
-      field_to_match {
-        type = "BODY"
+    statement {
+      managed_rule_group_statement {
+        name = var.rule_name
+        vendor_name = "AWS"
       }
     }
-}
-    
+
+    override_action {
+      none {}
+    }
+
+    visibility_config {
+      cloudwatch_metrics_enabled = true
+      metric_name = var.rule_name_cors
+      sampled_requests_enabled = true
+    }
+  }
 }
