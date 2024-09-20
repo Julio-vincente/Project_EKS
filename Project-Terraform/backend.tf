@@ -17,8 +17,11 @@ module "EBS" {
 
 module "Cloud_Watch" {
   source = "./modules/Cloud_Watch"
-  Dash-Name = aws_cloudwatch_dashboard
-  depends_on = [ module.EBS ]
+  
+  Dash_Name    = "DashBoardForEKS"
+  depends_on   = [ module.EBS ]
+  ebs_volume_id = module.EBS.ebs_volume_id[0]
+  Metric_Name  = "CPU/Storage Utilization"
 }
 
 module "ECR" {

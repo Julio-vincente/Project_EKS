@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_metric_alarm" "Prod-alarmCpu" {
-  alarm_name                = var.Metric-Name
+  alarm_name                = var.Metric_Name
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = 2
   metric_name               = "CPUUtilization"
@@ -11,8 +11,8 @@ resource "aws_cloudwatch_metric_alarm" "Prod-alarmCpu" {
   insufficient_data_actions = []
 }
 
-resource "aws_cloudwatch_dashboard" "Prod-Dash" {
-  dashboard_name = var.Dash-Name
+resource "aws_cloudwatch_dashboard" "ProdDash" {
+  dashboard_name = var.Dash_Name
 
   dashboard_body = jsonencode({
     widgets = [
@@ -22,7 +22,6 @@ resource "aws_cloudwatch_dashboard" "Prod-Dash" {
         y      = 0,
         width  = 12,
         height = 6,
-
         properties = {
           metrics = [
             ["AWS/EC2", "CPUUtilization", "InstanceId", "i-012345"]
@@ -39,7 +38,6 @@ resource "aws_cloudwatch_dashboard" "Prod-Dash" {
         y      = 7,
         width  = 12,
         height = 6,
-
         properties = {
           metrics = [
             ["AWS/EBS", "VolumeReadOps", "VolumeId", var.ebs_volume_id],
@@ -57,7 +55,6 @@ resource "aws_cloudwatch_dashboard" "Prod-Dash" {
         y      = 14,
         width  = 3,
         height = 3,
-
         properties = {
           markdown = "Hello world"
         }

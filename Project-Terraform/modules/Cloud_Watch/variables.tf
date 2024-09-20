@@ -1,12 +1,12 @@
 # variables.tf
-variable "Metric-Name" {
-  type    = string
-  default = "Cpu Usage"
+variable "Metric_Name" {
+  description = "Name of the metric for the alarm"
+  type        = string
 }
 
-variable "Dash-Name" {
-  type    = string
-  default = "DashBoard-Eks"
+variable "Dash_Name" {
+  description = "Name of the CloudWatch dashboard"
+  type        = string
 }
 
 variable "ebs_volume_id" {
