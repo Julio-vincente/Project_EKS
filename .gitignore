@@ -3,3 +3,5 @@ project/modules/Cloud_Watch
 project/modules/waf
 project/modules/rds
 project/modules/s3
+project/.terraform/
+project/.terraform.lock.hcl
