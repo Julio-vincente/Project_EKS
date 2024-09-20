@@ -1,12 +1,3 @@
-module "ebs" {
-  source = "./modules/EBS"
-}
-
-module "cloudwatch" {
-  source        = "./modules/Cloud_Watch"
-  ebs_volume_id = module.ebs.ebs_volume_id
-}
-
 resource "aws_cloudwatch_metric_alarm" "Prod-alarmCpu" {
   alarm_name                = var.Metric-Name
   comparison_operator       = "GreaterThanOrEqualToThreshold"
