@@ -1,0 +1,5 @@
+project/modules/secrets_manager
+project/modules/Cloud_Watch
+project/modules/waf
+project/modules/rds
+project/modules/s3
