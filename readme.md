@@ -4,7 +4,7 @@
 
 A **Kaua Sleep**, uma startup de tecnologia inovadora no setor de energia, está em fase de expansão e busca aprimorar a eficiência e qualidade de seus processos de desenvolvimento. Como parte dessa evolução, a empresa pretende implementar uma aplicação web robusta utilizando **Kubernetes**. Além disso, há a necessidade de integrar serviços de segurança e monitoramento para garantir o bom funcionamento da infraestrutura. Nosso grupo de desenvolvedores foi contratado para liderar este projeto, trazendo as melhores práticas de **cloud computing** e automação.
 
-![Logo do Projeto](./imagens/Diagrama_do_projeto.png)
+![Logo do Projeto](./images/Diagrama_do_projeto.png)
 
 ## Planejamento do Projeto
 
