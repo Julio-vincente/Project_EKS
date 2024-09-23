@@ -3,5 +3,3 @@ src-terraform/.terraform.lock.hcl
 src-terraform/terraform.tfstate.backup
 src-terraform/terraform.tfstate
 .github/workflows/Automation.yaml
-images/
-.github/workflows/Automation.yaml
