@@ -49,16 +49,6 @@ resource "aws_cloudwatch_dashboard" "ProdDash" {
           title  = "EKS Cluster - Storage (EBS) Operations"
         }
       },
-      {
-        type   = "text",
-        x      = 0,
-        y      = 14,
-        width  = 3,
-        height = 3,
-        properties = {
-          markdown = "Hello world"
-        }
-      }
     ]
   })
 }

@@ -1,5 +1,5 @@
 resource "aws_ebs_volume" "EBS_Volume" {
-  count = var.volume_count
+  count             = var.volume_count
   availability_zone = var.availability_zone
   size              = var.volume_size
   type              = var.volume_type

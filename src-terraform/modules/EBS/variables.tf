@@ -6,7 +6,7 @@ variable "volume_name" {
 
 variable "availability_zone" {
   type    = string
-  default = "us-east-1a"
+  default = "us-east-1b"
 }
 
 variable "volume_size" {
@@ -26,10 +26,10 @@ variable "volume_count" {
 
 variable "device_name" {
   type    = string
-  default = "/prod/sdf"
+  default = "/dev/xvdf"
 }
 
 variable "instance_id" {
   type    = string
-  default = ""
+  default = "i-026621ae1de5bd245"
 }

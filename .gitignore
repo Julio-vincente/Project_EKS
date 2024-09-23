@@ -1,6 +1,7 @@
-Project-Terraform/.terraform/
-Project-Terraform/.terraform.lock.hcl
-Project-Terraform/terraform.tfstate.backup
-Project-Terraform/terraform.tfstate
-.github/workflows/running-code-auto.yml
+src-terraform/.terraform/
+src-terraform/.terraform.lock.hcl
+src-terraform/terraform.tfstate.backup
+src-terraform/terraform.tfstate
+.github/workflows/Automation.yaml
 images/
+.github/workflows/Automation.yaml
