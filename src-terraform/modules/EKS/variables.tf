@@ -17,3 +17,8 @@ variable "instance_role_arn" {
   type = string
   default = "arn:aws:iam::492180519342:instance-profile/LabInstanceProfile"
 }
+
+variable "public_subnets_ids" {
+  description = "A list of public subnet IDs"
+  type        = list(string)
+}

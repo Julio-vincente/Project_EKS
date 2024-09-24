@@ -1,4 +1,5 @@
-resource "aws_cloudwatch_metric_alarm" "Prod-alarmCpu" {
+# Alarme para a CPUUtilization
+resource "aws_cloudwatch_metric_alarm" "Prod_alarmCpu" {
   alarm_name                = var.Metric_Name
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = 2
@@ -9,8 +10,49 @@ resource "aws_cloudwatch_metric_alarm" "Prod-alarmCpu" {
   threshold                 = 80
   alarm_description         = "This metric monitors EC2 CPU utilization"
   insufficient_data_actions = []
+
+  dimensions = {
+    InstanceId = var.instance_id
+  }
 }
 
+# Alarme de leitura para o EBS
+resource "aws_cloudwatch_metric_alarm" "Prod_alarmEbsReadOps" {
+  alarm_name                = "EBS_Volume_ReadOps_Alarm"
+  comparison_operator       = "GreaterThanOrEqualToThreshold"
+  evaluation_periods        = 2
+  metric_name               = "VolumeReadOps"
+  namespace                 = "AWS/EBS"
+  period                    = 120
+  statistic                 = "Sum"
+  threshold                 = 80
+  alarm_description         = "Este alarme monitora as operações de leitura do volume EBS"
+  insufficient_data_actions = []
+
+  dimensions = {
+    VolumeId = var.ebs_volume_id
+  }
+}
+
+# Alarme de escrita para o EBS
+resource "aws_cloudwatch_metric_alarm" "Prod_alarmEbsWriteOps" {
+  alarm_name                = "EBS_Volume_WriteOps_Alarm"
+  comparison_operator       = "GreaterThanOrEqualToThreshold"
+  evaluation_periods        = 2
+  metric_name               = "VolumeWriteOps"
+  namespace                 = "AWS/EBS"
+  period                    = 120
+  statistic                 = "Sum"
+  threshold                 = 80
+  alarm_description         = "Este alarme monitora as operações de escrita no volume EBS"
+  insufficient_data_actions = []
+
+  dimensions = {
+    VolumeId = var.ebs_volume_id
+  }
+}
+
+#Criação do DashBoard para as três métricas
 resource "aws_cloudwatch_dashboard" "ProdDash" {
   dashboard_name = var.Dash_Name
 
@@ -24,12 +66,12 @@ resource "aws_cloudwatch_dashboard" "ProdDash" {
         height = 6,
         properties = {
           metrics = [
-            ["AWS/EC2", "CPUUtilization", "InstanceId", "i-012345"]
+            ["AWS/EC2", "CPUUtilization", "InstanceId", "i-026621ae1de5bd245"]
           ],
           period = 300,
           stat   = "Average",
-          region = "us-east-1",
-          title  = "EKS Cluster - CPU Utilization"
+          region = "us_east_1",
+          title  = "EKS Cluster _ CPU Utilization"
         }
       },
       {
@@ -45,8 +87,8 @@ resource "aws_cloudwatch_dashboard" "ProdDash" {
           ],
           period = 300,
           stat   = "Sum",
-          region = "us-east-1",
-          title  = "EKS Cluster - Storage (EBS) Operations"
+          region = "us_east_1",
+          title  = "EKS Cluster _ Storage (EBS) Operations"
         }
       },
     ]

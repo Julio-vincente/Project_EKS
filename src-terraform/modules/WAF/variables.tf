@@ -15,5 +15,5 @@ variable "rule_name" {
 
 variable "rule_name_cors" {
     type = string
-    default = "aws-managed-rules-crs"
+    default = "aws_managed_rules_crs"
 }

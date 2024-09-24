@@ -3,7 +3,6 @@ output "ebs_volume_id" {
   value       = aws_ebs_volume.EBS_Volume[*].id 
 }
 
-
 output "FirstVolumeId" {
   value = aws_ebs_volume.EBS_Volume[0].id
 }

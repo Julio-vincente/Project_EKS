@@ -12,3 +12,8 @@ variable "Dash_Name" {
 variable "ebs_volume_id" {
   type = string
 }
+
+variable "instance_id" {
+  type = string
+  default = "i-026621ae1de5bd245"
+}

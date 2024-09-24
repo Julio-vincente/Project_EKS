@@ -5,7 +5,7 @@ resource "aws_ebs_volume" "EBS_Volume" {
   type              = var.volume_type
 
   tags = {
-    Name = "${var.volume_name}-${count.index}"
+    Name = "${var.volume_name}_${count.index}"
   }
 
 }

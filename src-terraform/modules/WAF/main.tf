@@ -17,7 +17,6 @@ resource "aws_wafv2_web_acl" "WAF_PROD" {
   rule {
     name     = var.rule_name
     priority = 1
-
     statement {
       managed_rule_group_statement {
         name        = var.rule_name
