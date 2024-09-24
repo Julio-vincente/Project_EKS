@@ -1,21 +1,20 @@
 name: CI/CD Terraform
 
-# Trigger every push in branch main 
+# Todas vez que um push acontecer no repositorio o terraform vai iniciar
 on: 
   push:
     branches:
-      - main  # enter the correct branch
+      - main  # coloque a branch que voce criou ou a padrão
 
 jobs: 
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout repository
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      # Configure the Credential Keys for AWS
+      # Configurar as credenciais da AWS
       - name: Set up AWS CLI
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -23,11 +22,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      # Install Terraform 
+      # Instalar o Terraform
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v2
 
-      # Init and run Terraform
+      # Inciar o Terraform e aplicar ele
       - name: Run Terraform
         run: |
           cd Project-Terraform

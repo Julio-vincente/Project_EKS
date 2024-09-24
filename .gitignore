@@ -3,3 +3,6 @@ src-terraform/.terraform.lock.hcl
 src-terraform/terraform.tfstate.backup
 src-terraform/terraform.tfstate
 .github/workflows/Automation.yaml
+src-terraform/modules/EKS/variables.tf
+src-terraform/modules/Cloud_Watch/variables.tf
+src-terraform/modules/EBS/variables.tf
