@@ -8,17 +8,17 @@ variable "public_subnets_ids" {
   type        = list(string)
 }
 
+variable "security_group_rds" {
+  description = "Sg_Rds"
+  type        = string
+}
+
 variable "rds_username" {
   type = string
 }
 
 variable "rds_password" {
   type = string
-}
-
-variable "sg_rds_ids" {
-  description = "id do sg rds"
-  type        = string
 }
 
 variable "engine" {

@@ -7,4 +7,4 @@ src-terraform/modules/EKS/variables.tf
 src-terraform/modules/Cloud_Watch/variables.tf
 src-terraform/modules/EBS/variables.tf
 src-terraform/modules/SSM/
-EKS-Deploy/
+EKS-Deploy/eksctl.exe

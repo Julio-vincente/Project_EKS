@@ -25,9 +25,9 @@ module "RDS" {
   source              = "./modules/RDS"
   private_subnets_ids = module.VPC.private_subnets_ids
   public_subnets_ids  = module.VPC.public_subnets_ids
-  sg_rds_ids          = module.VPC.sg_rds
   rds_password        = module.SSM.rds_password
   rds_username        = module.SSM.rds_username
+  security_group_rds  = module.VPC.sg_rds
   depends_on          = [module.VPC, module.SSM]
 }
 

@@ -11,7 +11,7 @@ resource "aws_db_instance" "name" {
 
   db_subnet_group_name = aws_db_subnet_group.db_subnet_group.name
 
-  vpc_security_group_ids = var.private_subnets_ids
+  vpc_security_group_ids = [ var.security_group_rds ]
 }
 
 resource "aws_db_subnet_group" "db_subnet_group" {
