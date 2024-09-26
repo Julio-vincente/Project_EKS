@@ -14,6 +14,6 @@ variable "ebs_volume_id" {
 }
 
 variable "instance_id" {
-  type = string
+  type    = string
   default = "i-026621ae1de5bd245"
 }

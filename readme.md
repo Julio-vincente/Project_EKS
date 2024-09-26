@@ -1,4 +1,4 @@
-# Projeto EKS - José* *
+# Projeto EKS - José
 
 ## Contexto
 

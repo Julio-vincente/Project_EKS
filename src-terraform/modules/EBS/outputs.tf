@@ -1,6 +1,6 @@
 output "ebs_volume_id" {
   description = "ID of the EBS Volume"
-  value       = aws_ebs_volume.EBS_Volume[*].id 
+  value       = aws_ebs_volume.EBS_Volume[*].id
 }
 
 output "FirstVolumeId" {

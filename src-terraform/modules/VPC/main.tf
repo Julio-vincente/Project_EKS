@@ -1,6 +1,9 @@
 ### VPC PRODUCTION
 resource "aws_vpc" "vpc_production" {
   cidr_block = var.cidr_production
+  enable_dns_support = true
+  enable_dns_hostnames = true
+
   tags = {
     Name = var.vpc_name_production
   }
@@ -17,8 +20,8 @@ resource "aws_subnet" "subnet_production_pub_1a" {
 }
 
 resource "aws_subnet" "subnet_production_priv_1a" {
-  vpc_id = aws_vpc.vpc_production.id
-  cidr_block = var.cidr_prod_priv_1a
+  vpc_id            = aws_vpc.vpc_production.id
+  cidr_block        = var.cidr_prod_priv_1a
   availability_zone = var.zone1a
   tags = {
     Name = var.production_priv_1a
@@ -36,8 +39,8 @@ resource "aws_subnet" "subnet_production_pub_1b" {
 }
 
 resource "aws_subnet" "subnet_production_priv_1b" {
-  vpc_id = aws_vpc.vpc_production.id
-  cidr_block = var.cidr_prod_priv_1b
+  vpc_id            = aws_vpc.vpc_production.id
+  cidr_block        = var.cidr_prod_priv_1b
   availability_zone = var.zone1b
   tags = {
     Name = var.production_priv_1b
@@ -82,8 +85,8 @@ resource "aws_route_table_association" "Association_Public" {
     subnet1 = aws_subnet.subnet_production_pub_1a.id
     subnet2 = aws_subnet.subnet_production_pub_1b.id
   }
-  
-  subnet_id = each.value
+
+  subnet_id      = each.value
   route_table_id = aws_route_table.RT_PUBLIC.id
 }
 
@@ -92,15 +95,15 @@ resource "aws_route_table" "RT_PRIVATE" {
   vpc_id = aws_vpc.vpc_production.id
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.nat_gateway_production.id
   }
-  
+
   tags = {
     Name = var.Name_RT_Private
   }
 
-  depends_on = [ aws_nat_gateway.nat_gateway_production ]
+  depends_on = [aws_nat_gateway.nat_gateway_production]
 }
 
 resource "aws_route_table_association" "Association_Private" {
@@ -108,64 +111,64 @@ resource "aws_route_table_association" "Association_Private" {
     subnet1 = aws_subnet.subnet_production_priv_1a.id
     subnet2 = aws_subnet.subnet_production_priv_1b.id
   }
-  
-  subnet_id = each.value
+
+  subnet_id      = each.value
   route_table_id = aws_route_table.RT_PRIVATE.id
 
-  depends_on = [ aws_route_table.RT_PRIVATE ]
+  depends_on = [aws_route_table.RT_PRIVATE]
 }
 
 # Criação Security Group dos Nodes
 resource "aws_security_group" "NODES_SG" {
-  name = var.Name_sg_node
+  name        = var.Name_sg_node
   description = var.Description_sg_node
-  vpc_id = aws_vpc.vpc_production.id
+  vpc_id      = aws_vpc.vpc_production.id
 }
 
 # Liberando Nodes para http
 resource "aws_vpc_security_group_ingress_rule" "rule_node_http" {
   security_group_id = aws_security_group.NODES_SG.id
-  from_port = 80
-  to_port = 80
-  ip_protocol = "tcp"
-  cidr_ipv4 = "0.0.0.0/0"
+  from_port         = 80
+  to_port           = 80
+  ip_protocol       = "tcp"
+  cidr_ipv4         = "0.0.0.0/0"
 }
 
 # Liberando Nodes para https
 resource "aws_vpc_security_group_ingress_rule" "rule_node_https" {
   security_group_id = aws_security_group.NODES_SG.id
-  from_port = 443
-  to_port = 443
-  ip_protocol = "tcp"
-  cidr_ipv4 = "0.0.0.0/0"
+  from_port         = 443
+  to_port           = 443
+  ip_protocol       = "tcp"
+  cidr_ipv4         = "0.0.0.0/0"
 }
 
 # Liberando Nodes se comunicar para a internet
 resource "aws_vpc_security_group_egress_rule" "rule_node_outbound" {
   security_group_id = aws_security_group.NODES_SG.id
-  ip_protocol = "-1"
-  cidr_ipv4 = "0.0.0.0/0"
+  ip_protocol       = "-1"
+  cidr_ipv4         = "0.0.0.0/0"
 }
-  
+
 # Criação Security Group do RDS
 resource "aws_security_group" "RDS_SG" {
-  name = var.Name_sg_rds
+  name        = var.Name_sg_rds
   description = var.Description_sg_rds
-  vpc_id = aws_vpc.vpc_production.id
+  vpc_id      = aws_vpc.vpc_production.id
 }
 
 # Liberando Mysql para o RDS
 resource "aws_vpc_security_group_ingress_rule" "rule_rds_https" {
   security_group_id = aws_security_group.RDS_SG.id
-  from_port = 3306
-  to_port = 3306
-  ip_protocol = "tcp"
-  cidr_ipv4 = "0.0.0.0/0"
+  from_port         = 3306
+  to_port           = 3306
+  ip_protocol       = "tcp"
+  cidr_ipv4         = "0.0.0.0/0"
 }
 
 # Liberando RDS se comunicar para a internet
 resource "aws_vpc_security_group_egress_rule" "rule_rds_outbound" {
   security_group_id = aws_security_group.RDS_SG.id
-  ip_protocol = "-1"
-  cidr_ipv4 = "0.0.0.0/0"
+  ip_protocol       = "-1"
+  cidr_ipv4         = "0.0.0.0/0"
 }
