@@ -35,7 +35,6 @@ resource "aws_wafv2_web_acl" "WAF_PROD" {
     }
   }
 
-  # New rule to protect against Log4j2 and other known bad inputs
   rule {
     name     = "protect-against-known-bad-inputs"
     priority = 2
