@@ -47,6 +47,6 @@ module "ECR" {
   source = "./modules/ECR"
 }
 
-module "S3" {
+module "S3" { 
   source = "./modules/S3" 
 }
