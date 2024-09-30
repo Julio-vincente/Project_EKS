@@ -21,8 +21,12 @@ jobs:
             aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
             aws-region: us-east-1
 
-      - name: Run Terraform
-        run: |
-            cd src-terraform
-            terraform init
-            terraform apply --auto-approve
+      - name: Terraform init
+        run: terraform init
+
+      - name: Terraform plan
+        run: terraform plan
+
+      - name: Terraform apply
+        if: github.event_name == 'workflow_dispatch'
+        run: terraform apply --auto-aprove

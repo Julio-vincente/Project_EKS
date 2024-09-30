@@ -14,6 +14,7 @@ resource "aws_subnet" "subnet_production_pub_1a" {
   vpc_id            = aws_vpc.vpc_production.id
   cidr_block        = var.cidr_prod_pub_1a
   availability_zone = var.zone1a
+  map_public_ip_on_launch = true
   tags = {
     Name = var.production_pub_1a
   }
@@ -23,6 +24,7 @@ resource "aws_subnet" "subnet_production_priv_1a" {
   vpc_id            = aws_vpc.vpc_production.id
   cidr_block        = var.cidr_prod_priv_1a
   availability_zone = var.zone1a
+  map_public_ip_on_launch = true
   tags = {
     Name = var.production_priv_1a
   }
@@ -33,6 +35,7 @@ resource "aws_subnet" "subnet_production_pub_1b" {
   vpc_id            = aws_vpc.vpc_production.id
   cidr_block        = var.cidr_prod_pub_1b
   availability_zone = var.zone1b
+  map_public_ip_on_launch = true
   tags = {
     Name = var.production_pub_1b
   }
@@ -42,6 +45,7 @@ resource "aws_subnet" "subnet_production_priv_1b" {
   vpc_id            = aws_vpc.vpc_production.id
   cidr_block        = var.cidr_prod_priv_1b
   availability_zone = var.zone1b
+  map_public_ip_on_launch = true
   tags = {
     Name = var.production_priv_1b
   }
