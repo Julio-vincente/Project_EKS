@@ -1,6 +1,6 @@
 variable "name_s3" {
   type    = string
-  default = "4002"
+  default = "julio344"
 }
 
 variable "pasta_s3" {

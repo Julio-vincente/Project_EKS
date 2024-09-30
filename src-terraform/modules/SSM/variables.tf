@@ -1,6 +1,6 @@
 variable "ssm_name" {
   type    = string
-  default = "rds_secrets_databases"
+  default = "rds_secrets_databases_mesa03"
 }
 
 variable "ssm_description" {

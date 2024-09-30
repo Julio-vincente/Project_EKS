@@ -66,7 +66,7 @@ resource "aws_cloudwatch_dashboard" "ProdDash" {
         height = 6,
         properties = {
           metrics = [
-            ["AWS/EC2", "CPUUtilization", "InstanceId", "i-026621ae1de5bd245"]
+            ["AWS/EC2", "CPUUtilization", "InstanceId", "i-00f185cb92a977fc1"]
           ],
           period = 300,
           stat   = "Average",
