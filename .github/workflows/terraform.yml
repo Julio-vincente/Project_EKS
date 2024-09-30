@@ -30,6 +30,5 @@ jobs:
         working-directory: ./src-terraform
 
       - name: Terraform apply
-        if: github.event_name == 'workflow_dispatch'
         working-directory: ./src-terraform
         run: terraform apply --auto-aprove
