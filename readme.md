@@ -1,43 +1,38 @@
-# Projeto EKS - José
+# Projeto EKS - Kaua Sleep
 
 ## Contexto
 
-A **Kaua Sleep**, uma startup de tecnologia inovadora no setor de energia, está em fase de expansão e busca aprimorar a eficiência e qualidade de seus processos de desenvolvimento. Como parte dessa evolução, a empresa pretende implementar uma aplicação web robusta utilizando **Kubernetes**. Além disso, há a necessidade de integrar serviços de segurança e monitoramento para garantir o bom funcionamento da infraestrutura. Nosso grupo de desenvolvedores foi contratado para liderar este projeto, trazendo as melhores práticas de **cloud computing** e automação.
+A **Kaua Sleep** está em expansão e busca melhorar seus processos de desenvolvimento através de uma aplicação web robusta utilizando **Kubernetes** no **Amazon EKS**. O objetivo é implementar uma infraestrutura escalável, automatizada e segura.
+
+## Estrutura do Projeto
 
 ![Diagrama do Projeto](./images/Diagrama_do_projeto.png)
 
-## Planejamento do Projeto
+1. **Cluster Kubernetes**
+   - **Amazon EKS**: Gerencia contêineres com alta escalabilidade e resiliência, aproveitando a integração com outros serviços AWS.
+   
+2. **Repositório de Imagens Docker**
+   - **Amazon ECR**: Centraliza o armazenamento de imagens Docker para deploy contínuo no Kubernetes.
 
-Para garantir uma infraestrutura robusta, escalável e segura, implementaremos os seguintes serviços:
+3. **Armazenamento Persistente**
+   - **Amazon EBS**: Proverá volumes persistentes para os pods, garantindo a integridade dos dados.
 
-1. **Criação do Cluster Kubernetes**
-   - **Amazon EKS (Elastic Kubernetes Service)**: Será utilizado para gerenciar a infraestrutura de contêineres, permitindo a execução eficiente e escalável da aplicação.
+4. **Monitoramento e Segurança**
+   - **Amazon CloudWatch**: Coleta métricas e logs dos recursos, configurando alertas proativos.
+   - **AWS WAF**: Protege a aplicação web contra ameaças externas.
 
-2. **Criação do Repositório de Imagens Docker**
-   - **Amazon ECR (Elastic Container Registry)**: Armazenará e gerenciará as imagens Docker, facilitando o deploy e a integração contínua com o Kubernetes.
+## Estrutura de Módulos no Terraform
 
-3. **Provisionamento de Armazenamento para os Nodes**
-   - **Amazon EBS (Elastic Block Store)**: Fornecerá volumes de armazenamento persistente para os nodes do Kubernetes, garantindo durabilidade e integridade dos dados da aplicação.
+O projeto adota uma abordagem modular para facilitar a reutilização e organização dos recursos. Principais módulos:
 
-4. **Armazenamento de Arquivos e Backups**
-   - **Amazon S3 (Simple Storage Service)**: Será utilizado para armazenar arquivos do banco de dados, backups e outros dados não estruturados, garantindo alta disponibilidade e durabilidade.
+- **VPC Module**: Provisão da rede privada (VPC), subnets e gateways para isolar os recursos.
+- **EKS Module**: Configura o cluster EKS com nós gerenciados, grupos de segurança e permissões associadas.
+- **ECR Module**: Cria o repositório de imagens Docker e gerencia o ciclo de vida das imagens.
+- **CloudWatch Module**: Configura o monitoramento com alarmes e dashboards personalizados.
 
-5. **Configuração de Métricas e Dashboards**
-   - **Amazon CloudWatch**: Serviço de monitoramento que será configurado para coletar e visualizar métricas críticas, como a utilização de CPU e o uso de volumes EBS, além de configurar alarmes para acompanhamento proativo.
+Cada módulo é responsável por um conjunto específico de recursos, promovendo a reutilização e facilidade na manutenção da infraestrutura.
 
-6. **Gestão Segura de Credenciais**
-   - **AWS Systems Manager (SSM)**: Será utilizado para armazenar e gerenciar de forma segura as credenciais e segredos da infraestrutura, além de facilitar a automação de tarefas administrativas.
+## Kubernetes no Projeto
 
-7. **Garantia de Conectividade Segura**
-   - **Amazon VPC (Virtual Private Cloud)**: Fornecerá uma rede privada para garantir a conectividade segura e isolada entre os componentes da aplicação.
-
-8. **Implementação de Segurança com Firewall**
-   - **AWS WAF (Web Application Firewall)**: Será utilizado para proteger a aplicação web contra ameaças como injeções SQL, cross-site scripting (XSS) e ataques DDoS.
-
-## Objetivos
-
-- Configurar e gerenciar uma infraestrutura escalável e segura usando **Kubernetes** no **Amazon EKS**.
-- Monitorar e otimizar a performance da aplicação usando **Amazon CloudWatch** com alarmes e dashboards personalizados.
-- Garantir segurança de dados e acessos com o uso de **AWS Systems Manager** e **AWS WAF**.
-- Facilitar o processo de deploy e integração contínua através do **Amazon ECR** para gerenciamento de imagens Docker.
-- Utilizar o **Amazon S3** como repositório seguro para arquivos e backups, garantindo alta durabilidade e disponibilidade.
+- **Deployment e Service**: Configura o **Deployment** para gerenciar réplicas da aplicação e o **Service** para expor a aplicação dentro e fora do cluster.
+- **Persistent Volume (PV) e Persistent Volume Claim (PVC)**: Garante que o armazenamento seja persistente entre reinicializações dos pods, ligando os volumes do **Amazon EBS** aos pods do Kubernetes.
